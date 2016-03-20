@@ -27,6 +27,10 @@ app.post('/phoneNumberPost', function (req, res) {
   console.log('Got a POST request from /txtPinAuth');
   console.log('req:' + JSON.stringify(req));
 
+  res.send({
+    'status': 'SUCCESS'
+  });
+
   var phoneNumber = phoneNumberAuthenticate(req.region,req.phoneNumber);
 
   if (phoneNumber === null) {
