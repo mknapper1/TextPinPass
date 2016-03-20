@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var phoneNumber = require('./routes/phoneNumber');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -18,6 +19,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.get('/phoneNumber', phoneNumber.index);
+
+
 
 var PIN_LENGTH = 4;
 
