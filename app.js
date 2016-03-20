@@ -191,7 +191,10 @@ function storePinNumber(phoneNumber,pin) {
 }
 
 function isPinValid(phoneNumber, pinNumber) {
-  // tests whether or not the pin and phone numbers match
+  if (pinNumber === findPin(phoneNumber)) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -235,10 +238,12 @@ function findPin(phoneNumber) {
       if(data){
         data.Items.forEach(function(item) {
           console.log("Query returns: ", item.pinNumber );
+          return item.pinNumber
         });
       }
       else if (data == false){
         console.log("No user associated with that phone number");
+          return null
       }
     }
   });
