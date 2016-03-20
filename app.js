@@ -161,11 +161,8 @@ function phoneNumberAuthenticate(region,phoneNumber) {
 }
 
 function sendPin(phoneNumber,pin) {
-
-  alert(phoneNumber + '-----' + pin);
+  console.log(phoneNumber + '-----' + pin);
   return;
-
-
   pin = "PIN NUMBER: " + pin || 'ERROR GENERATING PIN';
   phoneNumber = phoneNumber || '2698158815';
   twilio.sendMessage({
@@ -220,15 +217,42 @@ function authenticated() {
 
 }
 
+function findPin(phoneNumber) {
+  var params = {
+    TableName : "pins",
+    KeyConditionExpression: "#phoneNumber = :PHONENUMBER",
+    ExpressionAttributeNames:{
+      "#phoneNumber": "phoneNumber"
+    },
+    ExpressionAttributeValues: {
+      ":PHONENUMBER": phoneNumber
+    }
+  };
+  docClient.query(params, function(err, data) {
+    if (err) {
+      // console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+    } else {
+      if(data){
+        data.Items.forEach(function(item) {
+          console.log("Query returns: ", item.pinNumber );
+        });
+      }
+      else if (data == false){
+        console.log("No user associated with that phone number");
+      }
+    }
+  });
+}
+
 function findByPhoneNumber(phoneNumber) {
   var params = {
     TableName : "users",
-    KeyConditionExpression: "#pNum = :PNUM",
+    KeyConditionExpression: "#phoneNumber = :PHONENUMBER",
     ExpressionAttributeNames:{
       "#pNum": "phoneNumber"
     },
     ExpressionAttributeValues: {
-      ":PNUM": phoneNumber
+      ":PHONENUMBER": phoneNumber
     }
   };
   docClient.query(params, function(err, data) {
@@ -247,13 +271,30 @@ function findByPhoneNumber(phoneNumber) {
   });
 }
 
+function addPin(phoneNumber,pin) {
+  var params = {
+    TableName:'pins',
+    Item:{
+      "phoneNumber": phoneNumber,
+      "pinNumber": pin
+    }
+  };
 
-function addUser(phoneNumber, userPassword) {
+  docClient.put(params, function(err, data) {
+    if (err) {
+      console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+    } else {
+      console.log("Added item:", JSON.stringify(data, null, 2));
+    }
+  });
+}
+
+function addUser(phoneNumber, userPassword, pin) {
   var params = {
     TableName:'users',
     Item:{
       "phoneNumber": phoneNumber,
-      "userPassword": userPassword
+      "userPassword": userPassword,
     }
   };
 
