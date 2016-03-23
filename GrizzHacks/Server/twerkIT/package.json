@@ -1,0 +1,15 @@
+{
+  "name": "twerk_api",
+  "version": "0.0.1",
+  "description": "DEV API FOR USER CELL PHONE AUTH",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MATT & LUKE",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "twilio": "^2.9.0"
+  }
+}
