@@ -77,19 +77,19 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 AWS.config.update({
   region: "us-west-2",
   endpoint: "https://dynamodb.us-west-2.amazonaws.com",
-  accessKeyId: 'AKIAIPXMKLR536VMYY7Q',
-  secretAccessKey: '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'
+  accessKeyId: '',
+  secretAccessKey: ''
 });
 
 // Twillio setup
 var twilio_live = true;
-var accountSid_live = 'AC438b5dfe281da6684cfd6eafa5054cfd';
-var authToken_live = '858373e32e8dafef5e245ee3f757b956';
-var accountSid_test = 'AC8e403ecded02c3cdacdcde5af4e64398';
-var authToken_test = '475b9f37eb9a8e0733d0688901900630';
+var accountSid_live = '';
+var authToken_live = '';
+var accountSid_test = '';
+var authToken_test = '';
 
-var phoneNumber_from_live = '+12693388071';
-var phoneNumber_from_test = '+15005550006';
+var phoneNumber_from_live = '';
+var phoneNumber_from_test = '';
 var phoneNumber_from;
 
 var twilio;
@@ -169,7 +169,7 @@ function sendPin(phoneNumber,pin) {
   console.log(phoneNumber + '-----' + pin);
   return;
   pin = "PIN NUMBER: " + pin || 'ERROR GENERATING PIN';
-  phoneNumber = phoneNumber || '2698158815';
+  phoneNumber = phoneNumber || '';
   twilio.sendMessage({
     body: pin,
     to: phoneNumber,
