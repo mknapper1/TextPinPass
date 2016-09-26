@@ -22,7 +22,7 @@ function sendPin(phoneNumber,pin) {
     console.log(phoneNumber + '-----' + pin);
     return;
     pin = "PIN NUMBER: " + pin || 'ERROR GENERATING PIN';
-    phoneNumber = phoneNumber || '2698158815';
+    phoneNumber = phoneNumber || '';
     twilio.sendMessage({
         body: pin,
         to: phoneNumber,
